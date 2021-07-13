@@ -12,3 +12,20 @@ class Usuario(db.Model):
     user_role = db.Column(db.Integer)
     pedidos = db.relationship("Pedido")
     #metodos_de_pagamento
+
+    def json(self):
+        return {
+            "nome": self.nome,
+            "email":self.email,
+            "telefone":self.telefone,
+        }
+
+    def Retornar_pedidos(self):
+        return{
+            "pedidos":self.pedidos
+        }
+
+    def Retornar_enderecos(self):
+        return {
+            "endereços":self.endereco
+        }

@@ -11,5 +11,4 @@ class Endereco(db.Model):
     cep = db.Column(db.String(10))
     cidade = db.Column(db.String(20))
     estado = db.Column(db.String(3))
-    
     loja = db.relationship("Loja", back_populates = "endereco")

@@ -1,11 +1,35 @@
 from ..extensions import db 
+from flask import jsonify
+
 
 class Loja(db.Model):
     __tablename__ = "loja"
     id = db.Column(db.Integer, primary_key=True)
-    #usuarios_adm_perm#tabela de associação com usuários e permissões que os mesmos tem, pode criar permissões como modificar loja ou uma permissão só pra criar itens e afins
+    nome = db.Column(db.String(30))
+    telefone = db.Column(db.String(11))
+    usuarios_permissoes = db.relationship("Usuarios_lojas_permissoes")#tabela de associação com usuários e permissões que os mesmos tem, pode criar permissões como modificar loja ou uma permissão só pra criar itens e afins
     endereco = db.relationship("Endereco", back_populates="loja", uselist=False)
     zona_entrega = db.Column(db.String(100))#no estágio atual, precisa ser uma string descrevendo quais são as possíveis 
     #localidades, entretanto, com um sistema de mapa, pode ser um raio de entrega
-    pedidos = db.relationship("Pedido")
+    
     itens = db.relationship("Item")
+    pedidos_id = db.Column(db.Integer, db.ForeignKey("item.pedido_id"))#o id dos pedidos será pego diretamente da relação com os itens
+
+    def json(self):
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "telefone":self.telefone,
+            "endereco":self.endereco,
+            "zona_entrega":self.zona_entrega
+        }
+
+    def json_itens(self):
+        return{
+            "itens":jsonify([item.json() for item in self.itens])
+        }
+
+    def json_pedidos(self):
+        return {
+            "itens":jsonify([pedido.json() for pedido in self.pedidos_id])
+        }
