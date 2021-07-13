@@ -8,7 +8,7 @@ class Usuario(db.Model):
     email = db.Column(db.String(30))
     senha = db.Column(db.String(20))#sem "codificação"
     telefone = db.Column(db.String(10))
-    #endereco
+    endereco = db.relationship("Endereco")
     user_role = db.Column(db.Integer)
-    #pedidos
+    pedidos = db.relationship("Pedido")
     #metodos_de_pagamento

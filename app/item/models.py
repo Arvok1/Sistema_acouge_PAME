@@ -9,6 +9,6 @@ class Item(db.Model):
     validade = db.Column(db.DateTime)#validade em modo data para facilitar cálculos
     imagem = db.Column(db.String(30))#seria o local da imagem no servidor
     peso = db.Column(db.Float)
-    #pedido
+    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
     Valor = db.Column(db.Float)
-    #loja
+    loja_id = db.Column(db.Integer, db.ForeignKey('loja.id'))
