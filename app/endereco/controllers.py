@@ -4,9 +4,7 @@ from flask.views import MethodView
 from app.extensions import db
 
 class EnderecoCreate(MethodView):#/endereco/create 
-    def get(self):
-        print("oi")
 
     def post(self):
-        print("oi")
+        print("criar endereço")
 

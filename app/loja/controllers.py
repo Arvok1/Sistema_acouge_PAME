@@ -5,10 +5,10 @@ from app.extensions import db
 
 class LojaCreate(MethodView):#/create/loja
     def get(self):
-        print("oi")
+        print("pagina de criacao da loja")
 
     def post(self):
-        print("oi")
+        print("criar uma loja")
 
 
 

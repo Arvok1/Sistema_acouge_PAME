@@ -11,6 +11,7 @@ class Item(db.Model):
     pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
     valor = db.Column(db.Float)
     loja_id = db.Column(db.Integer, db.ForeignKey('loja.id'))
+    disponivel = db.Column(db.Boolean, default=True)
 
     def json(self):
         return {
