@@ -3,7 +3,7 @@ from ..extensions import db
 class Item(db.Model):
     __tablename__ = "item"
     id = db.Column(db.Integer, primary_key=True)
-    horario_adicionado = db.Column(db.Time(timezone=True))
+    horario_atualizado = db.Column(db.Time(timezone=True))
     nome = db.Column(db.String(50))
     validade = db.Column(db.DateTime)#validade em modo data para facilitar cálculos
     imagem = db.Column(db.String(30))#seria o local da imagem no servidor
@@ -16,7 +16,7 @@ class Item(db.Model):
     def json(self):
         return {
             "id":self.id,
-            "horario":self.horario_adicionado,
+            "horario":self.horario_atualizado,
             "nome":self.nome,
             "validade":self.validade,
             "imagem":self.imagem,
