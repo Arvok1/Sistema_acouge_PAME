@@ -5,14 +5,14 @@ from app.extensions import db
 import datetime
 
 class ItemCreate(MethodView):#/loja/<int:loja_id>/item/create
-    def post(self, loja_id, item_id):
+    def post(self, loja_id):
         print("criar item")
 
 class ItemList(MethodView):#/itens
     def get(self):
         itens = Item.query.filter_by(disponivel=True).all()
         return jsonify([item.json() for item in itens]), 200
-    #def post(self):#ao clicar no botão "adicionar ao carrinho, mandará para uma rota em app/pedido"
+    
         
 
 class ItemDetails(MethodView):#/loja/item/<int:item_id>/details
@@ -55,7 +55,7 @@ class ItemDetails(MethodView):#/loja/item/<int:item_id>/details
 '''class ItemModify(MethodView):#/loja/item/modify 
    '''
 
-#se usa o usuario id para checar pedidos e adicionar a certo pedido, a ser definido no pedido em si
+
 
 
 

@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .controllers import ItemCreate, ItemDetails, ItemList, ItemModify
+from .controllers import ItemCreate, ItemDetails, ItemList
 
 item_api = Blueprint('item_api', __name__)
 

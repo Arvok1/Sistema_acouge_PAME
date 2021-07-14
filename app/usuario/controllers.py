@@ -1,7 +1,9 @@
 from .models import Usuario
-from flask import json, request, jsonify
+from flask import json, request, jsonify, render_template
 from flask.views import MethodView
-from app.extensions import db
+from app.extensions import db, mail
+from flask_mail import Message
+from ..sensive import Sensive as sensive
 
 class UserCreate(MethodView):#/user/create -> rota para a criação de novos usuários
     def get(self):
@@ -19,27 +21,47 @@ class UserCreate(MethodView):#/user/create -> rota para a criação de novos usu
 
         login_existente = Usuario.query.filter_by(login=login) 
         email_existente = Usuario.query.filter_by(email=email)
-    
+        #checa se existe login ou email iguais, se sim, retorna um "erro" para o front
         if login_existente:
             return {"erro":"o login já existe"}
 
         if email_existente:
             return {"erro":"o email já existe"}
-
-        else:
+        
+        else:#se tiver passado as duas verificações, cria um novo objeto da classe Usuario e o coloca no banco de dados
             novo_usuario = Usuario(nome=nome, login=login, email=email, senha=senha, telefone=telefone, endereco=endereco)
 
             db.session.add(novo_usuario)
             db.session.commit()
 
+            #estruturação do email de boas-vindas
+            msg = Message(
+                sender = sensive.server_email,
+                recipients = [novo_usuario.email],
+                subject = 'Bem-vindo!',
+                html = render_template('email.html', usuario=novo_usuario)
+            )
+
+            mail.send(msg)
+
             return novo_usuario.json(), 200
 
 class UserLogin(MethodView):#/user/login -> fazer login de usuário
     def get(self):
-        print("oi")
+        print("pagina de login")
 
     def post(self):
-        print("oi") 
+        dados = request.json
+
+        login = dados.get["login"]
+        senha = dados.get["senha"]
+
+        usuario = Usuario.query.filter_by(login=login)
+        if usuario and usuario.senha == senha:
+            return usuario.json(), 200
+
+        else:
+            return {"mensagem": "usuario ou senha incorretos"}, 200
 
 class UserDetails(MethodView):#/user/details -> vê e modifica detalhes do usuário
     def get(self, user_id):

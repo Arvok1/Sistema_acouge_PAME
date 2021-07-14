@@ -24,7 +24,7 @@ class PedidoView(MethodView):#/pedido -> vê todos os pedidos
 '''class PedidoBuy(MethodView):
     def post(self):'''
 
-class ItemAddToCart(MethodView):
+class ItemAddToCart(MethodView):#/item/addtocart/<int:usuario_id>
     #por não saber exatamente como funcionariam as requisições do front-end, optei por um post aqui, visto que não sei como poder ser feita a verificação de pedidos
     def post(self, usuario_id):
         dados = request.json
