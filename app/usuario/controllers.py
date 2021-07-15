@@ -17,19 +17,19 @@ class UserCreate(MethodView):#/user/create -> rota para a criação de novos usu
         email = dados.get("email")
         senha = dados.get("senha")
         telefone = dados.get("telefone")
-        endereco = dados.get("endereco")
 
-        login_existente = Usuario.query.filter_by(login=login) 
-        email_existente = Usuario.query.filter_by(email=email)
+        login_existente = Usuario.query.filter_by(login=login).first()
+        email_existente = Usuario.query.filter_by(email=email).first()
         #checa se existe login ou email iguais, se sim, retorna um "erro" para o front
         if login_existente:
             return {"erro":"o login já existe"}
 
         if email_existente:
             return {"erro":"o email já existe"}
+
         
         else:#se tiver passado as duas verificações, cria um novo objeto da classe Usuario e o coloca no banco de dados
-            novo_usuario = Usuario(nome=nome, login=login, email=email, senha=senha, telefone=telefone, endereco=endereco)
+            novo_usuario = Usuario(nome=nome, login=login, email=email, senha=senha, telefone=telefone)
 
             db.session.add(novo_usuario)
             db.session.commit()

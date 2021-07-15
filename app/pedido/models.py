@@ -11,7 +11,7 @@ class Pedido(db.Model):
     metodo_pagamento = db.Column(db.Integer)
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable = False)
     itens = db.relationship("Item")
-    lojas_itens = db.Column(db.Integer, db.ForeignKey('item.loja_id'))
+    
 
     def json(self):
         return {

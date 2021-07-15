@@ -8,7 +8,7 @@ class Usuario(db.Model):
     email = db.Column(db.String(30), unique=True)
     senha = db.Column(db.String(20))#sem "codificação"
     telefone = db.Column(db.String(10))
-    endereco = db.relationship("Endereco")
+    endereco = db.relationship("Endereco") #criar endereco
     user_role = db.Column(db.Integer)
     pedidos = db.relationship("Pedido")
     #metodos_de_pagamento
@@ -17,7 +17,7 @@ class Usuario(db.Model):
         return {
             "nome": self.nome,
             "email":self.email,
-            "telefone":self.telefone,
+            "telefone":self.telefone
         }
 
     def Retornar_pedidos(self):
