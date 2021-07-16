@@ -29,10 +29,6 @@ class Loja(db.Model):
             "itens":jsonify([item.json() for item in self.itens])
         }
 
-    def json_pedidos(self):
-        return {
-            "itens":jsonify([pedido.json() for pedido in self.pedidos_id])
-        }
 
 class Usuarios_lojas_permissoes(db.Model):
     __tablename__ = 'usuarios_lojas_permissoes'

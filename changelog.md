@@ -1,3 +1,5 @@
+v0.021:
+Adiciona Compra de pedido e verificação para atualização automática de quantidade disponível em estoque
 
 Versão 0.02:
 Modifica as tabelas de usuário, endereço, itens, pedidos e lojas, pois as mesmas possuíam alguns erros em que possuíam mais de uma ligação entre si(as que possuem relacionamentos)
@@ -6,6 +8,7 @@ Adiciona encriptação de senha através de bcrypt
 Adiciona a vinculação de Usuários a Lojas
 Adiciona Criação de itens -> O usuário precisa ter permissão na Loja em que o item será criado
 Adiciona Modificação de itens -> O usuário precisa ter permissão na Loja em que o item será criado
+
 
 TODO:
 Criação de Loja

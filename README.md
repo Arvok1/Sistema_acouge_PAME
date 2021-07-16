@@ -14,7 +14,7 @@ class Sensive:
     MAIL_PORT = 
     MAIL_USERNAME = 
     MAIL_KEY = 
-
+    JWT_SECRET_KEY = 
 
 Rotas e Métodos já feitos para cada classe no momento:
 
