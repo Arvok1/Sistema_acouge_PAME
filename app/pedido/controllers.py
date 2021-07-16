@@ -5,6 +5,7 @@ from flask.views import MethodView
 from app.extensions import db
 import datetime
 from flask_jwt_extended import jwt_required, current_user
+from ..decorators import user_lookup_callback, user_identity_lookup
 
 '''class PedidoCreate(MethodView):#/pedido/create -> cria um pedido
     def post(self):

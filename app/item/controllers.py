@@ -5,6 +5,7 @@ from app.extensions import db
 import datetime
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, current_user
 from ..loja.models import Usuarios_lojas_permissoes
+from ..decorators import user_lookup_callback, user_identity_lookup
 
 class ItemCreate(MethodView):#/loja/<int:loja_id>/item/create
     decorators = [jwt_required]
