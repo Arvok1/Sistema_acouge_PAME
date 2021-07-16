@@ -14,7 +14,7 @@ class Sensive:
     MAIL_PORT = 
     MAIL_USERNAME = 
     MAIL_KEY = 
-
+    JWT_SECRET_KEY = 
 
 Rotas e Métodos já feitos para cada classe no momento:
 
@@ -41,3 +41,4 @@ Usuario:
 #/user/login -> GET mostra a página de login, POST faz o "login"
 
 #/user/details -> GET mostra as informações do usuário, PATCH modifica as informações que forem enviados do usuário
+

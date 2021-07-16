@@ -1,6 +1,6 @@
 from ..extensions import db 
 from flask import jsonify
-
+from ..usuario.models import Usuario
 
 class Loja(db.Model):
     __tablename__ = "loja"
@@ -13,7 +13,7 @@ class Loja(db.Model):
     #localidades, entretanto, com um sistema de mapa, pode ser um raio de entrega
     
     itens = db.relationship("Item")
-    pedidos_id = db.Column(db.Integer, db.ForeignKey("item.pedido_id"))#o id dos pedidos será pego diretamente da relação com os itens
+    
 
     def json(self):
         return {
@@ -29,7 +29,17 @@ class Loja(db.Model):
             "itens":jsonify([item.json() for item in self.itens])
         }
 
-    def json_pedidos(self):
+
+class Usuarios_lojas_permissoes(db.Model):
+    __tablename__ = 'usuarios_lojas_permissoes'
+    id = db.Column(db.Integer, primary_key=True)
+    loja_id = db.Column(db.Integer, db.ForeignKey('loja.id'))
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
+    permissao = db.Column(db.Integer)#define o nivel de permissão do usuario
+    usuarios = db.relationship("Usuario")
+
+    def json(self):
         return {
-            "itens":jsonify([pedido.json() for pedido in self.pedidos_id])
+            "usuario_id":self.usuario_id,
+            "permissao":self.permissao
         }

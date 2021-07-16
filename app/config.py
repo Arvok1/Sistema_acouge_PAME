@@ -8,3 +8,4 @@ class Config:
     MAIL_PORT = sensive.MAIL_PORT
     MAIL_USERNAME = sensive.MAIL_USERNAME
     MAIL_KEY = sensive.MAIL_KEY
+    JWT_SECRET_KEY = sensive.JWT_SECRET_KEY

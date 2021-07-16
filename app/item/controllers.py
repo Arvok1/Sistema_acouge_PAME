@@ -3,14 +3,39 @@ from flask import request, jsonify
 from flask.views import MethodView
 from app.extensions import db
 import datetime
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, current_user
+from ..loja.models import Usuarios_lojas_permissoes
 
 class ItemCreate(MethodView):#/loja/<int:loja_id>/item/create
+    decorators = [jwt_required]
+    
     def post(self, loja_id):
-        print("criar item")
+        permissao_loja = Usuarios_lojas_permissoes.query.filter_by(loja_id=loja_id, usuario_id=current_user.id).first()
+
+        if not permissao_loja.permissao > 0:
+            return {"erro":"O usuário não tem permissão"}, 400 
+
+        else:
+            dados = request.json
+
+            nome = dados.get("nome")
+            
+            validade = dados.get("validade")
+            peso = dados.get("peso")
+            valor = dados.get("valor")
+            quantidade_disponivel = dados.get("quantidade_disponivel")
+            horario_atualizado = datetime.datetime.now()
+
+            novo_item = Item(nome = nome, validade=validade, peso=peso, valor=valor, loja_id=loja_id, horario_atualizado=horario_atualizado, quantidade_disponivel=quantidade_disponivel)
+
+            db.session.add(novo_item)
+            db.session.commit()
+
+            return novo_item.json(), 200
 
 class ItemList(MethodView):#/itens
     def get(self):
-        itens = Item.query.filter_by(disponivel=True).all()
+        itens = Item.query.filter_by(disponivel = True).all()
         return jsonify([item.json() for item in itens]), 200
     
         
@@ -52,8 +77,7 @@ class ItemDetails(MethodView):#/loja/item/<int:item_id>/details
         return {"mensagem":"item deletado da loja"}, 200
 
 
-'''class ItemModify(MethodView):#/loja/item/modify 
-   '''
+
 
 
 
