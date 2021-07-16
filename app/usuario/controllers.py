@@ -6,6 +6,7 @@ from flask_mail import Message
 from ..sensive import Sensive as sensive
 import bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from ..decorators import user_lookup_callback, user_identity_lookup
 
 class UserCreate(MethodView):#/user/create -> rota para a criação de novos usuários
     def get(self):

@@ -3,7 +3,9 @@ from flask import request, jsonify
 from flask.views import MethodView
 from app.extensions import db
 from flask_jwt_extended import jwt_required, current_user
+from ..decorators import user_lookup_callback, user_identity_lookup
 from ..loja.models import Usuarios_lojas_permissoes
+
 
 class LojaCreate(MethodView):#/create/loja
     def get(self):
