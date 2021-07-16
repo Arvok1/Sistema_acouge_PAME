@@ -41,3 +41,4 @@ Usuario:
 #/user/login -> GET mostra a página de login, POST faz o "login"
 
 #/user/details -> GET mostra as informações do usuário, PATCH modifica as informações que forem enviados do usuário
+

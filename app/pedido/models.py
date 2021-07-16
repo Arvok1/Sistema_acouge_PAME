@@ -10,7 +10,8 @@ class Pedido(db.Model):
     status = db.Column(db.Integer)#a ideia seria ser 0 para "no carrinho", "1" para reservado, "2" para comprado e "3" para terminado
     metodo_pagamento = db.Column(db.Integer)
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable = False)
-    itens = db.relationship("Item")
+    usuarios_permissoes = db.relationship("Itens_pedidos")
+    itens =  db.relationship("Itens_pedidos", back_populates="pedido")
     
 
     def json(self):

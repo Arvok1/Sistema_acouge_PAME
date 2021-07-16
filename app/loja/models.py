@@ -41,3 +41,9 @@ class Usuarios_lojas_permissoes(db.Model):
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
     permissao = db.Column(db.Integer)#define o nivel de permissão do usuario
     usuarios = db.relationship("Usuario")
+
+    def json(self):
+        return {
+            "usuario_id":self.usuario_id,
+            "permissao":self.permissao
+        }

@@ -17,8 +17,10 @@ class PedidoDetails(MethodView):#/pedido/details/<id> -> vê detalhes de um pedi
         print("mudar pedidos") 
 
 class PedidoView(MethodView):#/pedido -> vê todos os pedidos
-    def get(self):
-        print("ver pedido")
+    def get(self, usuario_id):
+        pedidos = Pedido.query.filter_by(usuario_id = usuario_id)
+        return jsonify([pedido.json() for pedido in pedidos]), 200
+
 
  
 '''class PedidoBuy(MethodView):
@@ -28,7 +30,7 @@ class ItemAddToCart(MethodView):#/item/addtocart/<int:usuario_id>
     #por não saber exatamente como funcionariam as requisições do front-end, optei por um post aqui, visto que não sei como poder ser feita a verificação de pedidos
     def post(self, usuario_id):
         dados = request.json
-        itens = dados.get["itens"]
+        itens = dados.get["itens"] #receberá o id dos itens
         data_horario = datetime.datetime.now()
         pedido_existente = Pedido.query.filter_by(usuario_id=usuario_id, status=0).first()#a ideia seria aceitar mais de um pedido ativo por vez, mas aqui, apenas um será possível
         if pedido_existente:

@@ -8,10 +8,12 @@ class Item(db.Model):
     validade = db.Column(db.DateTime)#validade em modo data para facilitar cálculos
     imagem = db.Column(db.String(30))#seria o local da imagem no servidor
     peso = db.Column(db.Float)
-    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
     valor = db.Column(db.Float)
     loja_id = db.Column(db.Integer, db.ForeignKey('loja.id'))
-    disponivel = db.Column(db.Boolean, default=True)
+    quantidade_disponivel = db.Column(db.Integer)
+    disponivel = db.Column(db.Boolean, default = True)
+    pedidos = db.relationship("Itens_pedidos", back_populates="itens")
+
 
     def json(self):
         return {
@@ -30,3 +32,13 @@ class Item(db.Model):
             "id":self.id,
             "pedido_id":self.pedido_id,
         }
+
+class Itens_pedidos(db.Model):
+    __tablename__ = 'itens_pedidos'
+    id = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
+    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
+    quantidade = db.Column(db.Integer)
+    peso = db.Column(db.Float)
+    itens = db.relationship("Item", back_populates="pedidos")
+    pedidos = db.relationship("Pedido", back_populates="itens")
